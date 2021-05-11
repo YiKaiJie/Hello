@@ -126,25 +126,56 @@ public String Page(String sPage,ResultSet rs,int intPage,int intPageSize){
     try {
         rs.last();
 
-        int intRowCount=rs.getRow();
+        int intRowCount = rs.getRow();
         int intPageCount;
-        if (intRowCount%intPageSize==0)
-            intPageCount=intRowCount/intPageSize;
+        if (intRowCount % intPageSize == 0)
+            intPageCount = intRowCount / intPageSize;
         else
-            intPageCount=(int)Math.floor(intRowCount/intPageSize)+1;
-        if (intPageCount==0)
-            intPageCount=1;
+            intPageCount = (int) Math.floor(intRowCount / intPageSize) + 1;
+        if (intPageCount == 0)
+            intPageCount = 1;
 
-        if (intPage<1)
-            intPage=1;
-        if (intPage>intPageCount)
-            intPage=intPageCount;
+        if (intPage < 1)
+            intPage = 1;
+        if (intPage > intPageCount)
+            intPage = intPageCount;
 
-        if (intRowCount>intPageSize){
-            
+        if (intRowCount > intPageSize) {
+            s = "<table class=\"am-table am-table-striped\"width=\"90%\" border=\"0\" align=\"center\" cellpadding=\"2\" cellspacing=\"0\"><tr>"
+            s = s + "<td width=\"80%\" height=\"30\" class=\"chinese\"><span class=\"chinese\">";
+            s = s + "当前第" + intPage + "页/共" + intPageCount + "页，&nbsp;&nbsp;&nbsp;&nbsp;共" + intRowCount + "条记录，&nbsp;&nbsp;&nbsp;&nbsp;" + intPageSize + "条/页";
 
+            int showeye = intPageCount;
+
+            if (shwoye > 10)
+                showeye = 10;
+            for (i = 1; i <= showeye; i++) ;
+
+            s = s + "</span></td>";
+            s = s + "<td width=\"20%\">";
+            s = s + "<table width=\"100%\" border=\"0\">";
+            s = s + "<tr><td><div align=\"right\"><span class=\"chinese\">";
+            s = s + "<select id=\"ipage\" name=\"ipage\" class=\"chinese\"onChange=\"jumpMenu('self',this,0)\">";
+            s = s + "<option value=\"\" selected>请选择</option>";
+
+            for (i = 1; i <= intPageCount; i++) {
+                String sSelect = i == intPage ? "SELECTED" : "";
+                s = s + "<option value=\"" + sPage + "intPage=" + i + "\"" + sSelect + ">第" + i + "页<option>";
+            }
+
+            s = s + "</select></span></div>";
+            s = s + "</td></tr></table>";
+            return s + "</td></tr></table>";
         }
+
+        return "";
+    }catch (Exception e){
     }
+    return "分页出错！";
+    }
+
+public String
+
 
 
 }
